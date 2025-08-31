@@ -1,0 +1,90 @@
+// Forzeit Design System Overrides
+
+// Font Family - DM Sans (matching Forzeit.com)
+* {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+// Forzeit Brand Colors
+:root {
+  --forzeit-primary: #B53C17;
+  --forzeit-secondary: #8D99AE;
+  --forzeit-success: #00d084;
+  --forzeit-accent: #44FFD2;
+  --forzeit-dark: #0E0E0E;
+  --forzeit-light: #FAFAFA;
+}
+
+// Enhanced styling for cleaner look
+.v-card {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(14, 14, 14, 0.08) !important;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(14, 14, 14, 0.12) !important;
+  }
+}
+
+// Cleaner button styling
+.v-btn {
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  border-radius: 8px !important;
+}
+
+// Typography improvements
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.text-h4 {
+  font-size: 1.75rem !important;
+  line-height: 1.3 !important;
+}
+
+.text-h5 {
+  font-size: 1.25rem !important;
+  line-height: 1.4 !important;
+}
+
+.text-h6 {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+}
+
+// Chip styling
+.v-chip {
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+}
+
+// Progress indicators
+.v-progress-linear {
+  border-radius: 4px !important;
+}
+
+.v-progress-circular {
+  font-weight: 600 !important;
+}
+
+// Avatar styling
+.v-avatar {
+  border-radius: 8px !important;
+}
+
+// Clean input styling
+.v-text-field .v-field {
+  border-radius: 8px !important;
+}
+
+// Minimal shadows and cleaner appearance
+.stats-card {
+  border: 1px solid rgba(14, 14, 14, 0.06) !important;
+  
+  &:hover {
+    border-color: var(--forzeit-primary) !important;
+    border-width: 1px !important;
+  }
+}
