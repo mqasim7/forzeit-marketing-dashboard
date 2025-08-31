@@ -12,6 +12,12 @@
  */
 import { promises as fs } from 'node:fs'
 import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { createRequire } from 'node:module'
+
+// Get __dirname equivalent in ES modules
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const require = createRequire(import.meta.url)
 
 // Installation: npm install --save-dev @iconify/tools @iconify/utils @iconify/json @iconify/iconify
 import { cleanupSVG, importDirectory, isEmptyColor, parseColors, runSVGO } from '@iconify/tools'
@@ -81,39 +87,7 @@ const sources: BundleScriptConfig = {
     // 'octicon:code-square-24',
   ],
 
-  json: [
-    // Custom JSON file
-    // 'json/gg.json',
-
-    // Iconify JSON file (@iconify/json is a package name, /json/ is directory where files are, then filename)
-    require.resolve('@iconify-json/tabler/icons.json'),
-    {
-      filename: require.resolve('@iconify-json/mdi/icons.json'),
-      icons: [
-        'close-circle',
-        'language-javascript',
-        'language-typescript',
-      ],
-    },
-    {
-      filename: require.resolve('@iconify-json/fa/icons.json'),
-      icons: [
-        'circle',
-      ],
-    },
-
-    // Custom file with only few icons
-    // {
-    //   filename: require.resolve('@iconify-json/line-md/icons.json'),
-    //   icons: [
-    //     'home-twotone-alt',
-    //     'github',
-    //     'document-list',
-    //     'document-code',
-    //     'image-twotone',
-    //   ],
-    // },
-  ],
+  json: [],
 }
 
 // File to save bundle to
@@ -135,6 +109,17 @@ const target = join(__dirname, 'icons.css')
     //
   }
 
+  // Dynamically resolve the Tabler icons path
+  try {
+    const tablerIconsPath = require.resolve('@iconify-json/tabler/icons.json')
+    sources.json = [tablerIconsPath]
+  }
+  catch (err) {
+    console.error('Could not resolve @iconify-json/tabler/icons.json:', err)
+    // Fallback: empty json array means no icons will be loaded
+    sources.json = []
+  }
+
   const allIcons: IconifyJSON[] = []
 
   /**
@@ -147,7 +132,7 @@ const target = join(__dirname, 'icons.css')
     const organizedList = organizeIconsList(sources.icons)
 
     for (const prefix in organizedList) {
-      const filename = require.resolve(`@iconify/json/json/${prefix}.json`)
+      const filename = new URL(`@iconify/json/json/${prefix}.json`, import.meta.url).pathname
 
       sourcesJSON.push({
         filename,
