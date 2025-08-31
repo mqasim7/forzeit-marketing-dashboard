@@ -52,18 +52,11 @@ export default defineConfig({
     Components({
       dirs: ['src/@core/components', 'src/views/demos', 'src/components'],
       dts: true,
-      resolvers: [
-        componentName => {
-          // Auto import `VueApexCharts`
-          if (componentName === 'VueApexCharts')
-            return { name: 'default', from: 'vue3-apexcharts', as: 'VueApexCharts' }
-        },
-      ],
     }),
 
     // Docs: https://github.com/antfu/unplugin-auto-import#unplugin-auto-import
     AutoImport({
-      imports: ['vue', VueRouterAutoImports, '@vueuse/core', '@vueuse/math', 'vue-i18n', 'pinia'],
+      imports: ['vue', VueRouterAutoImports, '@vueuse/core', 'pinia'],
       dirs: [
         './src/@core/utils',
         './src/@core/composable/',
